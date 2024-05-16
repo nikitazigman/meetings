@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "meeting"
+version = "0.1.0"
+description = ""
+authors = ["Nikita Smirnov <nikita.smirnov@xelix.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.7.1"
+ipykernel = "^6.29.4"
+ipython = "^8.24.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

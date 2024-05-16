@@ -1,0 +1,754 @@
+version: 1.0.0
+
+SUPERVISOR:
+  properties:
+    name: Supervisor
+
+TF2:
+  properties:
+    name: world
+
+HARDWARE_BRIDGE:
+  properties:
+    name: chemobot_bridge
+    package: chemobot_bridge
+    launch_file: commanduino_launch.py
+    parameters:
+      config_path: "config/config_min.yaml"
+
+MANAGER:
+  - links:
+      supervised_by:
+        parent: Supervisor
+    properties:
+      name: Manger
+      package: move_manager_code
+      launch_file: move_manager_launch.py
+
+CARRIER:
+  - links:
+      managed_by:
+        parent: Manger
+      attached_to:
+        parent: world
+    properties:
+      name: XY
+      package: xy_module
+      launch_file: xy_launch.py
+      parameters:
+        x_limit: 40000
+        y_limit: 37000
+        x_motor: board1/X
+        y_motor: board1/Y
+
+TOOL:
+  - links:
+      managed_by:
+        parent: Manger
+      attached_to:
+        parent: XY
+        properties:
+          x_offset: 0
+          y_offset: 0
+          z_offset: 0
+    properties:
+      name: SyringeLarge
+      package: syringe_module
+      launch_file: syringe_launch.py
+      parameters:
+        vertical_limit: 27305
+        plunger_limit: 30128
+        volume_coefficient: 0.033191715
+        vertical_motor: board2/X
+        plunger_motor: board2/Y
+
+  - links:
+      managed_by:
+        parent: Manger
+      attached_to:
+        parent: XY
+        properties:
+          z_offset: 0
+          x_offset: 0
+          y_offset: 8700
+    properties:
+      name: SyringeSmall
+      package: syringe_module
+      launch_file: syringe_launch.py
+      parameters:
+        vertical_limit: 27603
+        plunger_limit: 30260
+        volume_coefficient: 0.003304693
+        vertical_motor: board2/Z
+        plunger_motor: board2/E0
+
+STORAGE:
+  - properties:
+      name: VialPlate
+
+STORAGE_CELL:
+  - links:
+    belong_to:
+      parent: VialPlate
+      properties:
+        column: 0
+        row: 0
+    controlled_by:
+      parent: Stirrer1
+    properties:
+      name: cell_00
+      x: 9004
+      y: 12938
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 0
+          row: 1
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_01
+      x: 9004
+      y: 17313
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 0
+          row: 2
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_02
+      x: 9004
+      y: 21688
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 0
+          row: 3
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_03
+      x: 9004
+      y: 26064
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 0
+          row: 4
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_04
+      x: 9004
+      y: 30439
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 0
+          row: 5
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_05
+      x: 9004
+      y: 34815
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 1
+          row: 0
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_10
+      x: 13350
+      y: 12938
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 1
+          row: 1
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_11
+      x: 13350
+      y: 17313
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 1
+          row: 2
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_12
+      x: 13350
+      y: 21688
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 1
+          row: 3
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_13
+      x: 13350
+      y: 26064
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 1
+          row: 4
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_14
+      x: 13350
+      y: 30439
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 1
+          row: 5
+      controlled_by:
+        parent: Stirrer1
+    properties:
+      name: cell_15
+      x: 13350
+      y: 34815
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 2
+          row: 0
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_20
+      x: 17696
+      y: 12938
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 2
+          row: 1
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_21
+      x: 17696
+      y: 17313
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 2
+          row: 2
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_22
+      x: 17696
+      y: 21688
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 2
+          row: 3
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_23
+      x: 17696
+      y: 26064
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 2
+          row: 4
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_24
+      x: 17696
+      y: 30439
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 2
+          row: 5
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_25
+      x: 17696
+      y: 34815
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 3
+          row: 0
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_30
+      x: 22042
+      y: 12938
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 3
+          row: 1
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_31
+      x: 22042
+      y: 17313
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 3
+          row: 2
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_32
+      x: 22042
+      y: 21688
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 3
+          row: 3
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_33
+      x: 22042
+      y: 26064
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 3
+          row: 4
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_34
+      x: 22042
+      y: 30439
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 3
+          row: 5
+      controlled_by:
+        parent: Stirrer2
+    properties:
+      name: cell_35
+      x: 22042
+      y: 34815
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 4
+          row: 0
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_40
+      x: 26388
+      y: 12938
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 4
+          row: 1
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_41
+      x: 26388
+      y: 17313
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 4
+          row: 2
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_42
+      x: 26388
+      y: 21688
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 4
+          row: 3
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_43
+      x: 26388
+      y: 26064
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 4
+          row: 4
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_44
+      x: 26388
+      y: 30439
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 4
+          row: 5
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_45
+      x: 26388
+      y: 34815
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 5
+          row: 0
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_50
+      x: 30734
+      y: 12938
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 5
+          row: 1
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_51
+      x: 30734
+      y: 17313
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 5
+          row: 2
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_52
+      x: 30734
+      y: 21688
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 5
+          row: 3
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_53
+      x: 30734
+      y: 26064
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 5
+          row: 4
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_54
+      x: 30734
+      y: 30439
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 5
+          row: 5
+      controlled_by:
+        parent: Stirrer3
+    properties:
+      name: cell_55
+      x: 30734
+      y: 34815
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 6
+          row: 0
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_60
+      x: 35080
+      y: 12938
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 6
+          row: 1
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_61
+      x: 35080
+      y: 17313
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 6
+          row: 2
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_62
+      x: 35080
+      y: 21688
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 6
+          row: 3
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_63
+      x: 35080
+      y: 26064
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 6
+          row: 4
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_64
+      x: 35080
+      y: 30439
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 6
+          row: 5
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_65
+      x: 35080
+      y: 34815
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 7
+          row: 0
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_70
+      x: 39426
+      y: 12938
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 7
+          row: 1
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_71
+      x: 39426
+      y: 17313
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 7
+          row: 2
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_72
+      x: 39426
+      y: 21688
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 7
+          row: 3
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_73
+      x: 39426
+      y: 26064
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 7
+          row: 4
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_74
+      x: 39426
+      y: 30439
+      z: 27300
+  - links:
+      belong_to:
+        parent: VialPlate
+        properties:
+          column: 7
+          row: 5
+      controlled_by:
+        parent: Stirrer4
+    properties:
+      name: cell_75
+      x: 39426
+      y: 34815
+      z: 27300
+
+CONTROLLER:
+  - links:
+      managed_by:
+        parent: Manger
+    properties:
+      name: Stirrer1
+      package: stirrer_module
+      launch_file: stirrer_launch.py
+      parameters:
+        stirrer: board1/AW_2
+
+  - links:
+      managed_by:
+        parent: Manger
+    properties:
+      name: Stirrer2
+      package: stirrer_module
+      launch_file: stirrer_launch.py
+      parameters:
+        stirrer: board1/AW_3
+
+  - links:
+      managed_by:
+        parent: Manger
+    properties:
+      name: Stirrer3
+      package: stirrer_module
+      launch_file: stirrer_launch.py
+      parameters:
+        stirrer: board2/AW_2
+
+  - links:
+      managed_by:
+        parent: Manger
+    properties:
+      name: Stirrer4
+      package: stirrer_module
+      launch_file: stirrer_launch.py
+      parameters:
+        stirrer: board2/AW_3
