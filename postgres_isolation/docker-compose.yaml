@@ -9,5 +9,3 @@ services:
        DB_USER: postgres
        DB_PASSWORD: password
        POSTGRES_PASSWORD: password
-
-
