@@ -1,0 +1,6 @@
+publishers:
+  slack_publisher:
+    slack_channel: "test slack channel"
+    slack_token: "test token"
+  file_publisher:
+    file_name: "error_report.txt"

@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "di-containers"
+version = "0.1.0"
+description = ""
+authors = ["Nikita Smirnov <nikita.smirnov@xelix.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+rich = "^13.7.1"
+dependency-injector = "^4.41.0"
+pyyaml = "^6.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.5.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
